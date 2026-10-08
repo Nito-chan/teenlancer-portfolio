@@ -149,13 +149,13 @@
   });
 
   /* Badges — real measured values (see BUILD_REPORT.md).
-     Mobile lab (simulated Moto G4, cold cache): perf 91, a11y 100.
-     Page weight excl. fonts: ~55 KB (193 KB incl. fonts). */
+     Production (Vercel URL, mobile): perf 83, a11y 100.
+     Page weight excl. fonts: ~55 KB (157 KB incl. fonts on production). */
   try {
     var perf = document.getElementById("badgePerf");
     var a11y = document.getElementById("badgeA11y");
     var weight = document.getElementById("badgeWeight");
-    if (perf) { perf.textContent = "91"; perf.parentElement.setAttribute("title", "Lighthouse Performance, mobile lab"); }
+    if (perf) { perf.textContent = "83"; perf.parentElement.setAttribute("title", "Lighthouse Performance, mobile production"); }
     if (a11y) { a11y.textContent = "100"; a11y.parentElement.setAttribute("title", "Lighthouse Accessibility, mobile lab"); }
     if (weight) { weight.textContent = "55 KB"; weight.parentElement.setAttribute("title", "Page weight excluding fonts (193 KB including fonts)"); }
   } catch (e) {}

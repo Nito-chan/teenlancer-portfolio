@@ -2,13 +2,12 @@
 
 ## 1. Deploy status
 
-- **Deployed URL:** not yet deployed (Vercel import pending).
-  Repo is live at `https://github.com/Nito-chan/teenlancer-portfolio`.
-  Deploy: import the repo in Vercel, Root Directory `./`, Framework "Other",
-  no build command (`vercel.json` sets headers + caching).
+- **Deployed URL:** `https://teenlancer-portfolio-chi.vercel.app/` (live).
+  Import: repo root, Framework "Other", no build command.
+  Headers verified live: `X-Frame-Options: DENY` site-wide,
+  `immutable` on css/js/png, revalidate on html.
 - **Repo URL:** `https://github.com/Nito-chan/teenlancer-portfolio`.
-  Footer "View source" still points at `https://github.com/` placeholder —
-  update it to the repo URL when convenient.
+  Footer "View source" now points at the repo.
 
 ## 2. File tree
 
@@ -57,24 +56,33 @@ Deviations from spec (intentional):
 - `--text-muted` (dark) is `#B9B8D9`, not the spec's `#A9A8CC`. Measured 9.56:1 vs 15.61:1 background — both pass, the lighter value reads better on the indigo.
 - Font loading: tried `media="print" onload` async pattern; mobile perf dropped 91→83 with TBT 0→650ms. Reverted to render-blocking Google Fonts stylesheet per spec.
 
-## 4. Lighthouse + Web Vitals (measured, `npx lighthouse`, Chrome, local `python http.server`)
+## 4. Lighthouse + Web Vitals (measured, `npx lighthouse`, Chrome)
+
+Production (`https://teenlancer-portfolio-chi.vercel.app/`):
 
 | Suite | Perf | A11y | Best prac. | SEO |
 |---|---|---|---|---|
-| Mobile (default Moto G4 emulation) | **91** | **100** | **100** | **100** |
-| Desktop (`--preset=desktop`) | **98** | **100** | **100** | **100** |
+| Mobile (Moto G4 emulation) | **83** | **100** | **100** | **100** |
+| Desktop | **93** | **100** | **100** | **100** |
 
-Mobile lab details: FCP 2.7s, LCP 2.7s, TBT 0ms, CLS 0, Speed Index 3.5s,
-total 193 KiB (fonts included). Desktop: FCP/LCP 0.7s, TBT 10ms, CLS 0.001.
-INP has no lab value; field INP on this page (no heavy JS) is expected ≤200ms
-but was **not measured** — honest gap, see §8.
+Mobile production details: FCP 3.5s, LCP 3.5s, TBT 0ms, CLS 0.003,
+total 156 KiB (fonts included). Desktop: FCP/LCP 1.3s, TBT 0ms,
+CLS 0.001, 157 KiB. One desktop run failed with transient `NO_FCP`;
+re-run passed. INP has no lab value; field INP on this page (no heavy
+JS) is expected ≤200ms but was **not measured** — honest gap, see §8.
 
-Perf target (≥95 mobile) **missed by 4 points**: the entire gap is the
-Google Fonts chain on simulated slow-4G with a cold cache
-(`render-blocking-insight` est. savings 1.4s). Deployed with HTTP/2 +
-long-cache font headers, repeat-visit and warm-cache LCP will be lower.
-Page weight target passed: **~55 KB excluding fonts** (HTML+CSS+JS+SVG),
-193 KB including fonts — both under 300 KB.
+Earlier local runs (`python http.server`): mobile 91 / 84 / 83,
+desktop 98. Run-to-run variance (83–91 mobile) is the Google Fonts
+chain on simulated slow-4G with a cold cache
+(`render-blocking-insight` est. savings 1.4s) — the badges show the
+production number (83), which is the strictest honest value.
+
+Perf target (≥95 mobile) **missed**: the entire gap is fonts on
+simulated slow-4G. Options within spec are exhausted (async-font
+pattern scored worse, 83 with TBT 650ms — reverted); closing it
+would need self-hosted/subset fonts, a deliberate spec deviation
+listed in §9. Page weight target passed: **~55 KB excluding fonts**
+(HTML+CSS+JS+SVG), ~157 KB including fonts — both under 300 KB.
 
 ## 5. Accessibility
 
@@ -120,10 +128,8 @@ All ≥ 4.5:1. No pair below threshold.
 
 ## 8. Could not verify
 
-- Vercel production deploy (import pending) + Formspree live activation
-  (endpoint `https://formspree.io/f/mnpjddvq` is wired in `config.js`;
-  request shape + both branches verified with a stubbed fetch, zero real
-  submissions — submit once yourself on the live URL to activate the form).
+- Formspree live activation (endpoint is wired and code-verified;
+  submit once on the live URL to activate the form).
 - Field Core Web Vitals (LCP/INP/CLS on real devices + real network).
 - Safari / Firefox rendering (only Chrome/Chromium tested).
 - 200% browser zoom session and full screen-reader pass (NVDA/VoiceOver).
@@ -132,6 +138,5 @@ All ≥ 4.5:1. No pair below threshold.
 ## 9. What I would polish next
 
 1. Stretch goals in order: "try it live" accent/name editor, print resume CSS, analytics hook.
-2. Subset Google Fonts to latin-only `text=` for the hero + `font-display: swap` audit on warm cache; re-run mobile Lighthouse on the deployed URL.
+2. Self-hosted/subset Google Fonts (latin-only) to close the mobile perf gap — deliberate spec deviation, needs re-audit.
 3. Live zoom + screen-reader pass, then a Safari/Firefox screenshot sweep.
-4. Replace footer repo placeholder with `https://github.com/Nito-chan/teenlancer-portfolio`.
