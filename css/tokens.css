@@ -1,0 +1,43 @@
+/* Design tokens — both themes. Edit accents here. */
+:root {
+  --bg: #10122a;
+  --surface: #191c3c;
+  --surface-2: #222650;
+  --text: #ecebfa;
+  --text-muted: #b9b8d9;
+  --accent: #ffb547;
+  --accent-ink: #1a1300;
+  --code-key: #7dd3fc;
+  --code-string: #86efac;
+  --border: #33376b;
+  --success: #4ade80;
+  --focus: #ffb547;
+  --code-bg: #141739;
+
+  --radius-sm: 8px;
+  --radius-lg: 16px;
+  --max-w: 1120px;
+  --header-h: 64px;
+  --font-display: "Bricolage Grotesque", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-code: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --shadow: 0 12px 40px rgb(0 0 0 / 0.35);
+}
+
+[data-theme="light"] {
+  --bg: #f7f6fb;
+  --surface: #ffffff;
+  --surface-2: #eeedf8;
+  --text: #14152e;
+  --text-muted: #4b4d77;
+  --accent: #4338ca;
+  --accent-ink: #ffffff;
+  --code-key: #0c4a6e;
+  --code-string: #166534;
+  --border: #d8d7ec;
+  --success: #15803d;
+  --focus: #4338ca;
+  --code-bg: #eeedf8;
+  --shadow: 0 12px 32px rgb(20 21 46 / 0.1);
+}

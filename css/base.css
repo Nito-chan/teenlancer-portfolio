@@ -1,0 +1,108 @@
+/* Base: reset, type, layout primitives. Mobile first. */
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+  transition: background 200ms var(--ease), color 200ms var(--ease);
+}
+
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; }
+button { font: inherit; color: inherit; }
+
+::selection { background: var(--accent); color: var(--accent-ink); }
+
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Fallback stacks with size-adjust to limit CLS on font swap */
+@font-face {
+  font-family: "Bricolage Fallback";
+  src: local("Arial Black");
+  size-adjust: 105%;
+  ascent-override: 95%;
+}
+@font-face {
+  font-family: "Plex Fallback";
+  src: local("Arial");
+  size-adjust: 102%;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display), "Bricolage Fallback", system-ui, sans-serif;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+h1 { font-size: clamp(2.4rem, 6vw, 4.5rem); font-weight: 700; }
+h2 { font-size: clamp(1.7rem, 3.6vw, 2.5rem); font-weight: 600; }
+h3 { font-size: 1.15rem; font-weight: 600; }
+
+p { max-width: 65ch; }
+
+.wrap {
+  width: min(var(--max-w), 100% - 2.5rem);
+  margin-inline: auto;
+}
+
+section { scroll-margin-top: calc(var(--header-h) + 16px); }
+.section { padding-block: clamp(4rem, 9vw, 7rem); }
+
+.section-head {
+  max-width: 44rem;
+  margin-bottom: 2.5rem;
+}
+.section-head p {
+  color: var(--text-muted);
+  margin-top: 0.75rem;
+  font-size: 1.0625rem;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -100px;
+  z-index: 100;
+  background: var(--accent);
+  color: var(--accent-ink);
+  padding: 0.65rem 1rem;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  text-decoration: none;
+  transition: top 180ms var(--ease);
+}
+.skip-link:focus { top: 1rem; }
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+code, pre, kbd {
+  font-family: var(--font-code), ui-monospace, monospace;
+  font-size: 0.92em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
