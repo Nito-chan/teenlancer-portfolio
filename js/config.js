@@ -189,10 +189,9 @@ window.SITE = {
   theme: { default: "dark", accent: null },
 
   form: {
-    // Formspree endpoint that receives contact messages, e.g.
-    // "https://formspree.io/f/abcdwxyz". Leave "" until you create
-    // one (see README "Contact form") — the form then shows an
+    // Formspree endpoint that receives contact messages.
+    // (see README "Contact form"). Leave "" and the form shows an
     // honest "not connected yet" note instead of fake success.
-    endpoint: ""
+    endpoint: "https://formspree.io/f/mnpjddvq"
   }
 };

@@ -120,7 +120,10 @@ All ≥ 4.5:1. No pair below threshold.
 
 ## 8. Could not verify
 
-- Vercel production deploy + Formspree end-to-end (needs hosting + endpoint ID).
+- Vercel production deploy (import pending) + Formspree live activation
+  (endpoint `https://formspree.io/f/mnpjddvq` is wired in `config.js`;
+  request shape + both branches verified with a stubbed fetch, zero real
+  submissions — submit once yourself on the live URL to activate the form).
 - Field Core Web Vitals (LCP/INP/CLS on real devices + real network).
 - Safari / Firefox rendering (only Chrome/Chromium tested).
 - 200% browser zoom session and full screen-reader pass (NVDA/VoiceOver).
@@ -132,4 +135,3 @@ All ≥ 4.5:1. No pair below threshold.
 2. Subset Google Fonts to latin-only `text=` for the hero + `font-display: swap` audit on warm cache; re-run mobile Lighthouse on the deployed URL.
 3. Live zoom + screen-reader pass, then a Safari/Firefox screenshot sweep.
 4. Replace footer repo placeholder with `https://github.com/Nito-chan/teenlancer-portfolio`.
-5. Attach a Formspree endpoint ID and run a live form test on the Vercel URL.
